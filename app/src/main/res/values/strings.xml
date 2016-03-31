@@ -4,5 +4,6 @@
     <string name="IP_address">192.168.23.1</string>
     <string name="page_pre">上一页</string>
     <string name="page_next">下一页</string>
+    <string name="scan">扫描二维码</string>
 
 </resources>

@@ -23,10 +23,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ipAddr"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="43dp"
         android:hint="@string/IP_address"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_toLeftOf="@+id/scanbutton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal" />
 
     <Button
         android:layout_width="400dp"
@@ -51,6 +54,16 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="50dp"
         android:onClick="sendNext" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan"
+        android:id="@+id/scanbutton"
+        android:onClick="scanStart"
+        android:layout_above="@+id/prebutton"
+        android:layout_alignRight="@+id/prebutton"
+        android:layout_alignEnd="@+id/prebutton" />
 
 
 </RelativeLayout>

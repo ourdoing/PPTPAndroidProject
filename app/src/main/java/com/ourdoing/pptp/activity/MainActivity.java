@@ -1,5 +1,9 @@
 package com.ourdoing.pptp.activity;
 
+import com.xys.libzxing.zxing.activity.*;
+import com.xys.libzxing.zxing.encoding.*;
+
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +13,7 @@ import android.widget.Toast;
 
 import com.ourdoing.pptp.R;
 import com.ourdoing.pptp.control.PageController;
+
 
 public class MainActivity extends AppCompatActivity {
     private EditText ip_text;
@@ -29,16 +34,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendNext(View view) {
-        pageController.setIp(getIP());
-        pageController.pageNext();
-        Toast.makeText(this, "你点击了next", Toast.LENGTH_LONG).show();
+        //// TODO: 输入过滤
+        if (getIP().length() == 0) {
+            Toast.makeText(this, "请输入IP", Toast.LENGTH_SHORT).show();
+        } else {
+            pageController.setIp(getIP());
+            pageController.pageNext();
+            Toast.makeText(this, "向" + getIP() + "发送了下一页", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void sendPre(View view) {
-        pageController.setIp(getIP());
-        pageController.pagePre();
-        Toast.makeText(this, "你点击了pre", Toast.LENGTH_LONG).show();
+        //// TODO: 输入过滤
+        if (getIP().length() == 0) {
+            Toast.makeText(this, "请输入IP", Toast.LENGTH_SHORT).show();
+        } else {
+            pageController.setIp(getIP());
+            pageController.pagePre();
+            Toast.makeText(this, "向" + getIP() + "发送了上一页", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
+    public void scanStart(View view) {
+        Intent openCameraIntent = new Intent(this, CaptureActivity.class);
+        startActivityForResult(openCameraIntent, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            String result = data.getExtras().getString("result");
+            ip_text.setText(result);
+        }
+    }
 }
