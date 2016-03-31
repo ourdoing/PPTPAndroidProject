@@ -7,21 +7,22 @@ import java.net.InetAddress;
 
 /**
  * Created by BlindingDark on 2016/3/29 0029.
+ * 向指定IP和PORT发送string数据
  */
 public class StringMessageSender {
     private DatagramSocket client;
 
-
-    public void send(String ip, String sendStr) {
+    public void send(String ip, String port, String sendStr) {
         try {
             client = new DatagramSocket();
 
             byte[] sendBuf = sendStr.getBytes();
             InetAddress Address = InetAddress.getByName(ip);
-            int port = 11751;
+
+            int intPort = Integer.parseInt(port);
 
             DatagramPacket sendPacket
-                    = new DatagramPacket(sendBuf, sendBuf.length, Address, port);
+                    = new DatagramPacket(sendBuf, sendBuf.length, Address, intPort);
 
             client.send(sendPacket);
 
@@ -33,4 +34,5 @@ public class StringMessageSender {
             }
         }
     }
+
 }

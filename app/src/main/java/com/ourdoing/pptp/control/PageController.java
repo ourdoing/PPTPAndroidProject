@@ -4,21 +4,29 @@ import com.ourdoing.pptp.transfer.StringMessageSender;
 
 /**
  * Created by BlindingDark on 2016/3/28 0028.
+ * 控制页面翻页
  */
-public class PageController{
+public class PageController {
     private String ip;
-    private StringMessageSender stringMessageSender= new StringMessageSender();
+    private String port = "12321";//默认端口
+    private StringMessageSender stringMessageSender = new StringMessageSender();
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setIPAndPort(String ipAndPort) {
+        String[] ipPort = ipAndPort.split(":");
+        this.ip = ipPort[0];
+        if (ipPort.length > 1) {
+            this.port = ipPort[1];
+        }
+
+
     }
 
-    public void pagePre(){
-        stringMessageSender.send(ip,"pre");
+    public void pagePre() {
+        stringMessageSender.send(ip, port, "pre");
     }
 
-    public void pageNext(){
-        stringMessageSender.send(ip,"next");
+    public void pageNext() {
+        stringMessageSender.send(ip, port, "next");
     }
 
 

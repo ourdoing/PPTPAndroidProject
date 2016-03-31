@@ -1,7 +1,6 @@
 package com.ourdoing.pptp.activity;
 
 import com.xys.libzxing.zxing.activity.*;
-import com.xys.libzxing.zxing.encoding.*;
 
 import android.content.Intent;
 import android.os.StrictMode;
@@ -29,29 +28,29 @@ public class MainActivity extends AppCompatActivity {
         ip_text = (EditText) findViewById(R.id.ipAddr);
     }
 
-    public String getIP() {
+    public String getIPAndPort() {
         return ip_text.getText().toString();
     }
 
     public void sendNext(View view) {
         //// TODO: 输入过滤
-        if (getIP().length() == 0) {
+        if (getIPAndPort().length() == 0) {
             Toast.makeText(this, "请输入IP", Toast.LENGTH_SHORT).show();
         } else {
-            pageController.setIp(getIP());
+            pageController.setIPAndPort(getIPAndPort());
             pageController.pageNext();
-            Toast.makeText(this, "向" + getIP() + "发送了下一页", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "向" + getIPAndPort() + "发送了下一页", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void sendPre(View view) {
         //// TODO: 输入过滤
-        if (getIP().length() == 0) {
+        if (getIPAndPort().length() == 0) {
             Toast.makeText(this, "请输入IP", Toast.LENGTH_SHORT).show();
         } else {
-            pageController.setIp(getIP());
+            pageController.setIPAndPort(getIPAndPort());
             pageController.pagePre();
-            Toast.makeText(this, "向" + getIP() + "发送了上一页", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "向" + getIPAndPort() + "发送了上一页", Toast.LENGTH_SHORT).show();
         }
     }
 
