@@ -12,10 +12,10 @@ public class PageController {
     private StringMessageSender stringMessageSender = new StringMessageSender();
 
     public void setIPAndPort(String ipAndPort) {
-        String[] ipPort = ipAndPort.split(":");
-        this.ip = ipPort[0];
+        String[] ipPort = ipAndPort.split(":");//以：为分隔符分开IP，前边为地址，后变为端口
+        this.ip = ipPort[0];//获得ip地址
         if (ipPort.length > 1) {
-            this.port = ipPort[1];
+            this.port = ipPort[1];//更改端口
         }
 
 
