@@ -10,14 +10,20 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/title">
+        android:background="@drawable/title"
+        android:weightSum="1">
+
         <ImageButton
-            android:onClick="scaning"
+            android:onClick="scanStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:background="@drawable/scaning"
-            /></LinearLayout>
+            android:maxHeight="1dp"
+            android:maxWidth="1dp"
+            android:minHeight="1dp"
+            android:minWidth="1dp"
+            android:layout_gravity="right" />
+    </LinearLayout>
     //按钮部分
     <LinearLayout
         android:layout_weight="5"
@@ -43,10 +49,13 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 />
+
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent" /></LinearLayout>
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
