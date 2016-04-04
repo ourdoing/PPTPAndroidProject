@@ -6,8 +6,8 @@ import com.xys.libzxing.zxing.activity.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 import android.widget.EditText;
@@ -32,13 +32,19 @@ public class MainActivity extends Activity {
     public void setIPAndPort(String _ipAndPort) {
         ip_text.setText(_ipAndPort);
     }
+
     public String getIPAndPort() {
         return ip_text.getText().toString();
         //return "192.168.1.1:1";
 
     }
 
-    public void sendNext(View view) {
+    public void next(View view) {
+        sendNext();
+
+    }
+
+    private void sendNext() {
         //// TODO: 输入过滤
         if (getIPAndPort().length() == 0) {
             Toast.makeText(this, "请输入IP", Toast.LENGTH_SHORT).show();
@@ -56,7 +62,12 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void sendPre(View view) {
+    public void pre(View view) {
+        sendPre();
+
+    }
+
+    private void sendPre() {
         //// TODO: 输入过滤
         if (getIPAndPort().length() == 0) {
             Toast.makeText(this, "请输入IP", Toast.LENGTH_SHORT).show();
@@ -90,11 +101,28 @@ public class MainActivity extends Activity {
         }
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        switch (keyCode) {
+// 音量减小
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                this.sendNext();
+                return true;
+// 音量增大
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                this.sendPre();
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     public void beerClick(View view) {//熊前
-        sendPre(view);
+        pre(view);
     }
 
     public void fishClick(View view) {//鱼后
-        sendNext(view);
+        next(view);
     }
 }
