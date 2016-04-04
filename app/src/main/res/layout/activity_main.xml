@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/ipAddr"
         android:layout_marginTop="43dp"
-        android:text="192.168.1.1:2333"
+        android:text="@string/IP_address"
         android:layout_below="@+id/textView"
         android:layout_toLeftOf="@+id/scanbutton"
         android:layout_alignParentLeft="true"

@@ -84,8 +84,8 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             String result = data.getExtras().getString("result");
-            //ip_text.setText(result);
-            this.iPAndPort = result;
+            ip_text.setText(result);
+            //this.iPAndPort = result;
             Toast.makeText(this, "发送目标已锁定：" + this.iPAndPort, Toast.LENGTH_SHORT).show();
         }
     }
