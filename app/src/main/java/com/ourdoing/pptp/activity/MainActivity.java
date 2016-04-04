@@ -17,7 +17,6 @@ import com.ourdoing.pptp.control.PageController;
 
 public class MainActivity extends Activity {
     private EditText ip_text;
-    private String iPAndPort = "";
     private PageController pageController = new PageController();
 
     @Override
@@ -31,11 +30,10 @@ public class MainActivity extends Activity {
     }
 
     public void setIPAndPort(String _ipAndPort) {
-        this.iPAndPort = _ipAndPort;
         ip_text.setText(_ipAndPort);
     }
     public String getIPAndPort() {
-        return iPAndPort;
+        return ip_text.getText().toString();
         //return "192.168.1.1:1";
 
     }
