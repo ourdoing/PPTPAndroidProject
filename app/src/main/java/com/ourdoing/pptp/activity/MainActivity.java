@@ -3,6 +3,7 @@ package com.ourdoing.pptp.activity;
 import com.ourdoing.pptp.R;
 import com.xys.libzxing.zxing.activity.*;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -14,24 +15,25 @@ import android.widget.EditText;
 import com.ourdoing.pptp.control.PageController;
 
 
-public class MainActivity extends AppCompatActivity {
-    //private EditText ip_text;
+public class MainActivity extends Activity {
+    private EditText ip_text;
     private String iPAndPort = "";
     private PageController pageController = new PageController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new);
+        setContentView(R.layout.activity_main);
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
 
-        //ip_text = (EditText) findViewById(R.id.ipAddr);
+        ip_text = (EditText) findViewById(R.id.ipAddr);
     }
 
     public String getIPAndPort() {
-        //return ip_text.getText().toString();
-       return iPAndPort;
+        return iPAndPort = ip_text.getText().toString();
+        //return iPAndPort;
+        //return "192.168.1.1:1";
 
     }
 
@@ -41,8 +43,15 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "请输入IP", Toast.LENGTH_SHORT).show();
         } else {
             pageController.setIPAndPort(getIPAndPort());
-            pageController.pageNext();
-            Toast.makeText(this, "向" + getIPAndPort() + "发送了下一页", Toast.LENGTH_SHORT).show();
+
+            if ("success".equals(pageController.pageNext())) {//发送成功
+                Toast.makeText(this, "向" + getIPAndPort() + "发送了下一页", Toast.LENGTH_SHORT).show();
+            } else {
+
+                Toast.makeText(this, "链接异常，请检查网络和防火墙后再试", Toast.LENGTH_SHORT).show();
+            }
+
+
         }
     }
 
@@ -52,8 +61,15 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "请输入IP", Toast.LENGTH_SHORT).show();
         } else {
             pageController.setIPAndPort(getIPAndPort());
-            pageController.pagePre();
-            Toast.makeText(this, "向" + getIPAndPort() + "发送了上一页", Toast.LENGTH_SHORT).show();
+
+            if ("success".equals(pageController.pagePre())) {//发送成功
+                Toast.makeText(this, "向" + getIPAndPort() + "发送了上一页", Toast.LENGTH_SHORT).show();
+            } else {
+
+                Toast.makeText(this, "链接异常，请检查网络和防火墙后再试", Toast.LENGTH_SHORT).show();
+            }
+
+
         }
     }
 
@@ -70,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             String result = data.getExtras().getString("result");
             //ip_text.setText(result);
             this.iPAndPort = result;
+            Toast.makeText(this, "发送目标已锁定：" + this.iPAndPort, Toast.LENGTH_SHORT).show();
         }
     }
 

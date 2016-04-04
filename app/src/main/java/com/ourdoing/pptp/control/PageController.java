@@ -1,9 +1,5 @@
 package com.ourdoing.pptp.control;
 
-import android.widget.Toast;
-
-import com.ourdoing.pptp.R;
-import com.ourdoing.pptp.activity.MainActivity;
 import com.ourdoing.pptp.transfer.StringMessageSender;
 
 /**
@@ -25,13 +21,13 @@ public class PageController {
 
     }
 
-    public void pagePre() {
-        stringMessageSender.send(ip, port, "pre");
+    public String pagePre() {
+        return stringMessageSender.send(ip, port, "pre");
 
     }
 
-    public void pageNext() {
-        stringMessageSender.send(ip, port, "next");
+    public String pageNext() {
+        return stringMessageSender.send(ip, port, "next");
     }
 
 

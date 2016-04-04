@@ -15,7 +15,7 @@ import java.net.InetAddress;
 public class StringMessageSender {
     private DatagramSocket client;
 
-    public void send(String ip, String port, String sendStr) {
+    public String send(String ip, String port, String sendStr) {
         try {
 
             Log.v(ip,port);//调试信息
@@ -33,8 +33,12 @@ public class StringMessageSender {
 
             client.send(sendPacket);//DatagramSocket并不知道数据要发往哪里，具体事宜是根据对象本身决定的所以要传入对象
 
-        } catch (IOException e) {
+            return "success";
+
+        } catch (Exception e) {
             e.printStackTrace();
+            Log.v(ip, "error");//调试信息
+            return "error";
         } finally {
             if (client != null) {
                 client.close();//关闭资源
