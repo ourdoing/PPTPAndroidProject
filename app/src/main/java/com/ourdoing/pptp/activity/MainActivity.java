@@ -30,9 +30,12 @@ public class MainActivity extends Activity {
         ip_text = (EditText) findViewById(R.id.ipAddr);
     }
 
+    public void setIPAndPort(String _ipAndPort) {
+        this.iPAndPort = _ipAndPort;
+        ip_text.setText(_ipAndPort);
+    }
     public String getIPAndPort() {
-        return iPAndPort = ip_text.getText().toString();
-        //return iPAndPort;
+        return iPAndPort;
         //return "192.168.1.1:1";
 
     }
@@ -84,9 +87,8 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             String result = data.getExtras().getString("result");
-            ip_text.setText(result);
-            //this.iPAndPort = result;
-            Toast.makeText(this, "发送目标已锁定：" + this.iPAndPort, Toast.LENGTH_SHORT).show();
+            this.setIPAndPort(result);
+            Toast.makeText(this, "发送目标已锁定：" + getIPAndPort(), Toast.LENGTH_SHORT).show();
         }
     }
 
