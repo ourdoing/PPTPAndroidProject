@@ -2,7 +2,6 @@ package com.ourdoing.pptp.transfer;
 
 import android.util.Log;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -12,21 +11,21 @@ import java.net.InetAddress;
  * 向指定IP和PORT发送string数据
  * 使用DatagramSocket进行传送数据，这个类只是一个码头不带有串流
  */
-public class StringMessageSender {
+public class StringMessageTransfer {
+
     private DatagramSocket client;
 
     public String send(String ip, String port, String sendStr) {
         try {
 
-            Log.v(ip,port);//调试信息
-            client = new DatagramSocket();
+            Log.v(ip, port);//调试信息
 
             byte[] sendBuf = sendStr.getBytes();//将String 转换为byte类型
             InetAddress Address = InetAddress.getByName(ip);// 获得InetAddress协议地址
 
             int intPort = Integer.parseInt(port);//端口变为int
 
-
+            client = new DatagramSocket(intPort);
 
             DatagramPacket sendPacket
                     = new DatagramPacket(sendBuf, sendBuf.length, Address, intPort);//创建一个有传送数据，数据长度，指定端口，地址的对象
@@ -46,4 +45,28 @@ public class StringMessageSender {
         }
     }
 
+    public String receive(String port) {
+        try {
+            byte[] receiveBuf = "fault".getBytes();//将String 转换为byte类型
+            int intPort = Integer.parseInt(port);//端口变为int
+
+            client = new DatagramSocket(intPort);
+
+            DatagramPacket receivePacket
+                    = new DatagramPacket(receiveBuf, receiveBuf.length);//从port中接收数据
+
+            client.setSoTimeout(5000);
+            client.receive(receivePacket);
+
+            return new String(receiveBuf);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        } finally {
+            if (client != null) {
+                client.close();//关闭资源
+            }
+        }
+    }
 }

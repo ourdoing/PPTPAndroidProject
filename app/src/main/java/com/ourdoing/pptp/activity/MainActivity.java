@@ -1,6 +1,7 @@
 package com.ourdoing.pptp.activity;
 
 import com.ourdoing.pptp.R;
+import com.ourdoing.pptp.control.ConnectionConfirm;
 import com.xys.libzxing.zxing.activity.*;
 
 import android.app.Activity;
@@ -18,6 +19,7 @@ import com.ourdoing.pptp.control.PageController;
 public class MainActivity extends Activity {
     private EditText ip_text;
     private PageController pageController = new PageController();
+    private ConnectionConfirm connectionConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,32 +87,39 @@ public class MainActivity extends Activity {
         }
     }
 
-
+    //开始扫描
     public void scanStart(View view) {
         Intent openCameraIntent = new Intent(this, CaptureActivity.class);
         startActivityForResult(openCameraIntent, 0);
     }
-
+    // 扫描完毕之后自动执行此方法，返回扫描结果
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             String result = data.getExtras().getString("result");
             this.setIPAndPort(result);
-            Toast.makeText(this, "发送目标已锁定：" + getIPAndPort(), Toast.LENGTH_SHORT).show();
+
+            // 请求连接，等待连接结果
+            connectionConfirm = new ConnectionConfirm(this);
+            connectionConfirm.execute(getIPAndPort());
+
         }
     }
 
 
+
+
+    //音量键控制翻页
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         switch (keyCode) {
-// 音量减小
+            // 音量减小
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 this.sendNext();
                 return true;
-// 音量增大
+            // 音量增大
             case KeyEvent.KEYCODE_VOLUME_UP:
                 this.sendPre();
                 return true;
@@ -119,10 +128,10 @@ public class MainActivity extends Activity {
     }
 
     public void beerClick(View view) {//熊前
-        pre(view);
+        sendPre();
     }
 
     public void fishClick(View view) {//鱼后
-        next(view);
+        sendNext();
     }
 }
